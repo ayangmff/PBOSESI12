@@ -1,0 +1,73 @@
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField
+
+        
+/**
+ *
+ * @author lenovo
+ */
+public class GUI extends JFrame {
+    private JTextfield display;
+    
+    public GUI() {
+        //menatur judul jendela
+        setTitle("Calculator");
+        //menatur operasi default saat jendela ditutup 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //menatur manajer tata letak
+        SetLayout(new BorderLayout());
+        
+        //membiuat text field tampilan
+        display = new JTextField();
+        display.setEditable(false);
+        add(display, BorderLayout.NORTH);
+        
+        //membuat panel untuk tombol-tombol 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout (3, 4));
+        
+        //membuat tombol- tombol ke panel
+        String[] buttons = {
+            "1", "2", "3", "4", "5", "6",
+            "7", "8", "9", "0", "+", "-",
+            "*", "/", "%", "=","Mod", "Exit"
+        };
+        
+        for(String text : buttons) {
+            JButton button = new JButton(text);
+            button.addActionListener(new ButtonClickListener());
+            buttonPanel.add(button);
+        }
+        
+        add(buttonPanel, BorderLayout.CENTER);
+        
+        //menatur ukuran jendela 
+        setSize(400, 250);
+        //membuat jendela terliat
+        setVisible(true);
+    }
+    
+    private class ButtonClickListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            string command = e.getActionCommand();
+            
+            if(command.equals("Exit")) {
+                System.exit(0);
+            } else {
+                display.setText(display.getText() + command);
+            }
+        }
+    }
+    public static void main(string [] args) {
+        //membuat dan menampilkan tata letak calculator
+        new GUI();
+    }
+}
